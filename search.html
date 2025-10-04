@@ -1,28 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Cards</title>
+  <title>Search Pokémon Cards</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-    <h1>Search Cards</h1>
+    <h1>Pokémon Card Search</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
-      <a href="search.html">Search Cards</a>
-      <a href="verify.html">Verify Code</a>
       <a href="contact.html">Contact</a>
+      <a href="verify.html">Verify</a>
     </nav>
   </header>
 
-  <main>
-    <h2>Find your card</h2>
-    <input type="text" id="cardSearch" placeholder="Type card name...">
-    <ul id="suggestions"></ul>
-  </main>
+  <div class="container">
+    <h2>Search for a Pokémon Card</h2>
+    <input type="text" id="cardSearch" placeholder="Type card name (e.g., Charizard)" />
+    <button onclick="searchCard()">Search</button>
+
+    <div id="results"></div>
+  </div>
 
   <script src="js/search.js"></script>
 </body>

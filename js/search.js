@@ -1,10 +1,29 @@
-const cards = ["Charizard Base Set", "Charizard Team Rocket", "Pikachu Promo", "Mewtwo Base Set"];
 
-document.getElementById("cardSearch").addEventListener("input", function() {
-  const input = this.value.toLowerCase();
-  const suggestions = cards.filter(c => c.toLowerCase().includes(input));
-  
-  document.getElementById("suggestions").innerHTML = suggestions
-    .map(s => `<li>${s}</li>`)
-    .join("");
-});
+async function searchCard() {
+    const query = document.getElementById("cardSearch").value;
+    if (!query) return;
+
+    const url = `https://api.pokemontcg.io/v2/cards?q=name:${query}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = "";
+
+    if (data.data.length === 0) {
+        resultsDiv.innerHTML = "<p>No cards found.</p>";
+        return;
+    }
+
+    data.data.slice(0, 5).forEach(card => {
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "card";
+        cardDiv.innerHTML = `
+            <h3>${card.name}</h3>
+            <p>Set: ${card.set.name}</p>
+            <p>Number: ${card.number}</p>
+            <img src="${card.images.small}" alt="${card.name}" />
+        `;
+        resultsDiv.appendChild(cardDiv);
+    });
+}
