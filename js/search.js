@@ -2,9 +2,14 @@ async function searchCard() {
     const query = document.getElementById("cardSearch").value.trim();
     if (!query) return;
 
-    const url = `https://api.pokemontcg.io/v2/cards?q=name=${encodeURIComponent(query)}`;
+    const url = `https://api.pokemontcg.io/v2/cards?q=name:${encodeURIComponent(query)}`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                "X-Api-Key": "c254161e-d9fd-4fe9-b1eb-bba8072dbc8a"
+            }
+        });
+        if (!response.ok) throw new Error("API error " + response.status);
         const data = await response.json();
 
         const resultsDiv = document.getElementById("results");
